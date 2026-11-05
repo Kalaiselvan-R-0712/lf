@@ -1,0 +1,733 @@
+
+/* =========================================================
+   STACKLY LAW FIRM — AUTHENTICATION PAGES
+   Shared palette and typography from the public website.
+   ========================================================= */
+:root {
+  --auth-navy: #19223a;
+  --auth-navy-deep: #111a30;
+  --auth-gold: #c7954a;
+  --auth-gold-light: #e0b66f;
+  --auth-paper: #ffffff;
+  --auth-paper-warm: #f6f4ef;
+  --auth-text: #293247;
+  --auth-muted: #788092;
+  --auth-line: #d9dce3;
+  --auth-danger: #b33e3e;
+  --procounsel-font: "Plus Jakarta Sans", sans-serif;
+  --procounsel-heading-font: "Marcellus", serif;
+}
+
+* { box-sizing: border-box; }
+html, body { width: 100%; min-height: 100%; margin: 0; }
+html { background: var(--auth-navy); }
+body.auth-login-page,
+body.auth-register-page {
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--auth-text);
+  background: var(--auth-paper-warm);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  line-height: 1.6;
+}
+body.auth-login-page.loading,
+body.auth-register-page.loading { overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+img { display: block; max-width: 100%; }
+
+/* Use the same full-screen emblem preloader as the main website. */
+.preloader {
+  position: fixed;
+  background-color: #0e0b06;
+  background-position: center center;
+  background-repeat: no-repeat;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .45s ease, visibility .45s ease;
+}
+.preloader.is-hidden { opacity: 0; visibility: hidden; }
+.preloader__image {
+  animation: preloaderIconFlip 2s ease-in-out infinite;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 60px auto;
+  width: 100%;
+  height: 100%;
+}
+@keyframes preloaderIconFlip {
+  0% { transform: perspective(600px) rotateY(0deg); }
+  50% { transform: perspective(600px) rotateY(180deg); }
+  100% { transform: perspective(600px) rotateY(360deg); }
+}
+
+/* Shared split-screen structure. */
+.login-shell,
+.register-shell {
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(360px, .88fr) minmax(540px, 1.12fr);
+  background: var(--auth-paper-warm);
+}
+.login-shell > .visual-side,
+.register-shell > .visual-side {
+  grid-column: 1;
+  grid-row: 1;
+}
+.login-shell > .form-side,
+.register-shell > .form-side {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* Photography panels: visibly layered legal image + the site's navy overlay. */
+.visual-side {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 46px clamp(28px, 4.4vw, 68px);
+  color: #fff;
+  background-color: var(--auth-navy);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+body.auth-login-page .visual-side {
+  background-image:
+    linear-gradient(180deg, rgba(17,26,48,.28) 0%, rgba(17,26,48,.34) 36%, rgba(17,26,48,.94) 100%),
+    url("../images/auth-register-bg.webp");
+  background-position: center center, center 38%;
+}
+body.auth-register-page .visual-side {
+  background-image:
+    linear-gradient(180deg, rgba(17,26,48,.22) 0%, rgba(17,26,48,.34) 36%, rgba(17,26,48,.94) 100%),
+    url("../images/auth-register-bg.webp");
+  background-position: center center, center 35%;
+}
+.visual-side::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 13% 12%, rgba(199,149,74,.20), transparent 29%),
+    radial-gradient(circle at 85% 75%, rgba(224,182,111,.12), transparent 32%);
+}
+.visual-side::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-right: 1px solid rgba(224,182,111,.22);
+}
+.visual-grid { display: none; }
+.brand {
+  position: absolute;
+  top: 34px;
+  left: clamp(24px, 3.5vw, 54px);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 12px;
+  border: 1px solid rgba(224,182,111,.30);
+  border-radius: 6px;
+  background: rgba(25,34,58,.58);
+  box-shadow: 0 10px 28px rgba(0,0,0,.12);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+.brand img {
+  width: 190px;
+  max-width: min(42vw, 190px);
+  height: auto;
+  object-fit: contain;
+}
+.visual-copy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 650px;
+  margin-top: auto;
+}
+.visual-copy .kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 17px;
+  color: var(--auth-gold-light);
+  font: 700 10px/1.4 "Plus Jakarta Sans", sans-serif;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+}
+.visual-copy .kicker i { color: var(--auth-gold); font-size: 13px; }
+.visual-copy h2 {
+  margin: 0 0 16px;
+  color: #fff;
+  font: 400 clamp(36px, 3.5vw, 56px)/1.08 "Marcellus", serif;
+  letter-spacing: 0;
+  text-shadow: 0 3px 18px rgba(0,0,0,.24);
+}
+.visual-copy h2 span {
+  color: var(--auth-gold-light);
+}
+.visual-copy p {
+  max-width: 570px;
+  margin: 0;
+  color: rgba(255,255,255,.86);
+  font: 400 14px/1.8 "Plus Jakarta Sans", sans-serif;
+}
+.visual-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+  margin-top: 30px;
+  max-width: 650px;
+}
+.visual-stat {
+  min-width: 0;
+  padding: 13px 12px;
+  border: 1px solid rgba(224,182,111,.28);
+  border-radius: 5px;
+  background: rgba(25,34,58,.52);
+  backdrop-filter: blur(5px);
+}
+.visual-stat strong {
+  display: block;
+  color: var(--auth-gold-light);
+  font: 700 9px/1.4 "Plus Jakarta Sans", sans-serif;
+  letter-spacing: 1px;
+}
+.visual-stat span {
+  display: block;
+  margin-top: 5px;
+  color: rgba(255,255,255,.88);
+  font: 500 11px/1.5 "Plus Jakarta Sans", sans-serif;
+}
+
+/* Form canvas and card. */
+.form-side {
+  position: relative;
+  min-width: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 44px clamp(24px, 5vw, 78px);
+  background:
+    radial-gradient(circle at 85% 12%, rgba(199,149,74,.08), transparent 25%),
+    linear-gradient(145deg, #f8f7f3 0%, #efede7 100%);
+}
+.auth-wrapper,
+.form-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 570px;
+  margin: 0 auto;
+  padding: clamp(28px, 3vw, 42px);
+  border: 1px solid rgba(199,149,74,.28);
+  border-radius: 10px;
+  background: var(--auth-paper);
+  box-shadow: 0 22px 60px rgba(25,34,58,.10);
+}
+.back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 24px;
+  color: #6f7786;
+  font: 600 11px/1.5 "Plus Jakarta Sans", sans-serif;
+  transition: color .2s ease;
+}
+.back-home i { color: var(--auth-gold); }
+.back-home:hover { color: var(--auth-navy); }
+
+.heading,
+.form-heading { margin: 0 0 24px; }
+.heading .eyebrow,
+.form-heading .eyebrow {
+  margin-bottom: 9px;
+  color: #a8772e;
+  font: 800 10px/1.5 "Plus Jakarta Sans", sans-serif;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+.heading h1,
+.form-heading h1 {
+  margin: 0 0 12px;
+  color: var(--auth-navy);
+  font: 400 clamp(34px, 3vw, 44px)/1.12 "Marcellus", serif;
+  letter-spacing: 0;
+}
+.heading p,
+.form-heading p {
+  max-width: 520px;
+  margin: 0;
+  color: #70798a;
+  font: 400 13px/1.75 "Plus Jakarta Sans", sans-serif;
+}
+.form-status {
+  display: none;
+  margin: 0 0 16px;
+  padding: 11px 13px;
+  border: 1px solid rgba(199,149,74,.35);
+  border-radius: 5px;
+  color: var(--auth-navy);
+  background: #fbf6ec;
+  font: 600 11px/1.55 "Plus Jakarta Sans", sans-serif;
+}
+.form-status.show { display: block; }
+
+/* Input controls. */
+.input-group,
+.form-group { margin: 0 0 16px; }
+.input-group > label,
+.form-group > label {
+  display: block;
+  margin: 0 0 7px;
+  color: #30394d;
+  font: 700 11px/1.5 "Plus Jakarta Sans", sans-serif;
+}
+.input-wrap { position: relative; }
+.input-wrap > i {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  z-index: 1;
+  color: #a8772e;
+  font-size: 14px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.input-wrap input,
+.input-wrap select {
+  display: block;
+  width: 100%;
+  height: 51px;
+  padding: 0 46px 0 43px;
+  border: 1px solid var(--auth-line);
+  border-radius: 6px;
+  outline: none;
+  color: var(--auth-navy);
+  background: #fff;
+  box-shadow: none;
+  font: 500 12px/1.4 "Plus Jakarta Sans", sans-serif;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.input-wrap input::placeholder { color: #9aa0aa; opacity: 1; }
+.input-wrap input:focus,
+.input-wrap select:focus {
+  border-color: var(--auth-gold);
+  box-shadow: 0 0 0 3px rgba(199,149,74,.13);
+}
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 9px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  color: #7b8290;
+  background: transparent;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.password-toggle:hover { color: #a8772e; background: rgba(199,149,74,.08); }
+
+.custom-select { position: relative; }
+.select-btn {
+  width: 100%;
+  min-height: 51px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 15px;
+  border: 1px solid var(--auth-line);
+  border-radius: 6px;
+  color: var(--auth-muted);
+  background: #fff;
+  font: 500 12px "Plus Jakarta Sans", sans-serif;
+  cursor: pointer;
+}
+.select-btn.open,
+.select-btn:focus-visible { border-color: var(--auth-gold); outline: 0; box-shadow: 0 0 0 3px rgba(199,149,74,.12); }
+.select-btn i { color: #a8772e; transition: transform .2s ease; }
+.select-btn.open i { transform: rotate(180deg); }
+.select-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: none;
+  padding: 5px;
+  border: 1px solid var(--auth-line);
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 14px 28px rgba(25,34,58,.12);
+}
+.select-menu.show { display: block; }
+.option {
+  padding: 11px 12px;
+  border-radius: 4px;
+  color: #465064;
+  font: 700 10px "Plus Jakarta Sans", sans-serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.option:hover,
+.option.selected { color: var(--auth-navy); background: #f5ecdc; }
+
+.role-select {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 10px;
+}
+.role-option {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 9px 12px;
+  border: 1px solid var(--auth-line);
+  border-radius: 6px;
+  color: #596274;
+  background: #fff;
+  font: 700 10px "Plus Jakarta Sans", sans-serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+.role-option i { color: #a8772e; font-size: 13px; }
+.role-option:hover,
+.role-option.selected,
+.role-option[aria-pressed="true"] {
+  border-color: var(--auth-gold);
+  color: var(--auth-navy);
+  background: #f8f1e5;
+}
+
+/* Validation, remember row and submit buttons. */
+.error {
+  display: none;
+  margin: 6px 0 0;
+  color: var(--auth-danger);
+  font: 600 10px/1.45 "Plus Jakarta Sans", sans-serif;
+}
+.error.show { display: block; }
+.remember-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 4px 0 20px;
+}
+.remember-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #697284;
+  font: 500 11px "Plus Jakarta Sans", sans-serif;
+}
+.remember-label input,
+.terms input { accent-color: var(--auth-gold); }
+.forgot-pass-link,
+.terms a {
+  color: #a8772e;
+  font: 700 11px "Plus Jakarta Sans", sans-serif;
+}
+.terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 2px 0 18px;
+  color: #697284;
+  font: 500 10px/1.6 "Plus Jakarta Sans", sans-serif;
+}
+.terms input { flex: 0 0 auto; margin-top: 3px; }
+.terms label { margin: 0; }
+.btn-primary,
+.submit-btn {
+  width: 100%;
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 20px;
+  border: 1px solid var(--auth-gold);
+  border-radius: 6px;
+  color: #fff;
+  background: linear-gradient(100deg, #b78337 0%, #c7954a 58%, #d0a15a 100%);
+  box-shadow: 0 10px 22px rgba(199,149,74,.18);
+  font: 700 12px "Plus Jakarta Sans", sans-serif;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn-primary:hover,
+.submit-btn:hover {
+  color: var(--auth-navy);
+  background: linear-gradient(100deg, #c7954a 0%, #e0b66f 100%);
+  box-shadow: 0 13px 26px rgba(199,149,74,.22);
+  transform: translateY(-1px);
+}
+.btn-primary:disabled,
+.submit-btn:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+.auth-link {
+  margin-top: 17px;
+  color: #758092;
+  text-align: center;
+  font: 500 11px/1.6 "Plus Jakarta Sans", sans-serif;
+}
+.auth-link a { color: #a8772e; font-weight: 800; }
+.auth-link a:hover,
+.forgot-pass-link:hover,
+.terms a:hover { color: var(--auth-navy); }
+.demo-box {
+  margin-top: 19px;
+  padding: 13px 15px;
+  border: 1px solid #e7dfd1;
+  border-radius: 6px;
+  color: #727b8b;
+  background: #f8f6f1;
+  font: 500 10px/1.6 "Plus Jakarta Sans", sans-serif;
+}
+.demo-box strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--auth-navy);
+  font: 800 10px "Plus Jakarta Sans", sans-serif;
+}
+.demo-box ul { margin: 0; padding-left: 17px; }
+.demo-box li { margin: 2px 0; }
+
+/* Medium screens. */
+@media (max-width: 1050px) {
+  .login-shell,
+  .register-shell { grid-template-columns: minmax(310px,.78fr) minmax(480px,1.22fr); }
+  .form-side { padding: 34px 25px; }
+  .auth-wrapper,
+  .form-wrap { padding: 29px; }
+}
+
+/* Mobile/tablet: image banner above form; the full legal image stays visible. */
+@media (max-width: 820px) {
+  .login-shell,
+  .register-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  .login-shell > .visual-side,
+  .register-shell > .visual-side {
+    order: 1;
+    width: 100%;
+    min-height: 300px;
+    height: 300px;
+    padding: 30px 24px;
+    background-position: center center, center 38%;
+  }
+  .login-shell > .form-side,
+  .register-shell > .form-side {
+    order: 2;
+    width: 100%;
+    min-height: 0;
+    padding: 28px 18px 38px;
+  }
+  .brand { top: 18px; left: 18px; }
+  .brand img { width: 155px; max-width: 60vw; }
+  .visual-copy { max-width: 620px; }
+  .visual-copy .kicker { margin-bottom: 8px; font-size: 9px; }
+  .visual-copy h2 { max-width: 590px; margin-bottom: 0; font-size: clamp(29px,6vw,40px); }
+  .visual-copy p,
+  .visual-stats { display: none; }
+  .auth-wrapper,
+  .form-wrap { max-width: 600px; }
+}
+@media (max-width: 520px) {
+  .login-shell > .visual-side,
+  .register-shell > .visual-side {
+    min-height: 248px;
+    height: 248px;
+    padding: 24px 17px;
+  }
+  .brand { top: 13px; left: 13px; padding: 6px 8px; }
+  .brand img { width: 126px; }
+  .visual-copy .kicker { font-size: 8px; letter-spacing: 1.4px; }
+  .visual-copy h2 { font-size: clamp(25px,7.2vw,32px); }
+  .login-shell > .form-side,
+  .register-shell > .form-side { padding: 20px 12px 30px; }
+  .auth-wrapper,
+  .form-wrap { padding: 21px 17px; border-radius: 8px; }
+  .heading h1,
+  .form-heading h1 { font-size: 32px; }
+  .input-wrap input { height: 49px; }
+  .btn-primary,
+  .submit-btn { min-height: 49px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preloader__image,
+  .visual-side *,
+  .btn-primary,
+  .submit-btn { animation: none !important; transition: none !important; }
+}
+
+
+
+/* =========================================================
+   FINAL AUTH PAGE CORRECTIONS
+   - Real vertical page scrollbar during the preloader
+   - Font Awesome 5 icon font compatibility
+   - Matching legal background on both pages
+   - Register page mirrors Login on desktop
+   ========================================================= */
+
+/* Keep the browser's vertical scrollbar present while the fixed preloader is displayed. */
+html {
+  overflow-x: clip !important;
+  overflow-y: scroll !important;
+  scrollbar-gutter: stable;
+}
+body.auth-login-page,
+body.auth-register-page {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  min-height: 100vh !important;
+}
+body.auth-login-page.loading,
+body.auth-register-page.loading {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+}
+
+/* The auth pages use the same Font Awesome 5.15.1 font files as the main site. */
+.auth-login-page .fas,
+.auth-register-page .fas,
+.auth-login-page .far,
+.auth-register-page .far {
+  display: inline-block !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  line-height: 1 !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+.auth-login-page .fas,
+.auth-register-page .fas {
+  font-family: "Font Awesome 5 Free" !important;
+  font-weight: 900 !important;
+}
+.auth-login-page .far,
+.auth-register-page .far {
+  font-family: "Font Awesome 5 Free" !important;
+  font-weight: 400 !important;
+}
+
+/* Same Lady Justice legal photograph on Login and Register. */
+body.auth-login-page .visual-side,
+body.auth-register-page .visual-side {
+  background-color: #19223a !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+body.auth-login-page .visual-side {
+  background-image:
+    linear-gradient(180deg,rgba(17,26,48,.30) 0%,rgba(17,26,48,.32) 36%,rgba(17,26,48,.94) 100%),
+    url("../images/auth-register-bg.webp") !important;
+  background-position: center center, center 35% !important;
+}
+body.auth-register-page .visual-side {
+  background-image:
+    linear-gradient(180deg,rgba(17,26,48,.30) 0%,rgba(17,26,48,.32) 36%,rgba(17,26,48,.94) 100%),
+    url("../images/auth-register-bg.webp") !important;
+  background-position: center center, center 35% !important;
+}
+
+/* Desktop: Login = image left / form right. Register = form left / image right. */
+@media (min-width: 821px) {
+  .login-shell {
+    grid-template-columns: minmax(360px,.88fr) minmax(540px,1.12fr) !important;
+  }
+  .login-shell > .visual-side { grid-column: 1 !important; grid-row: 1 !important; }
+  .login-shell > .form-side { grid-column: 2 !important; grid-row: 1 !important; }
+
+  .register-shell {
+    grid-template-columns: minmax(540px,1.12fr) minmax(360px,.88fr) !important;
+  }
+  .register-shell > .form-side { grid-column: 1 !important; grid-row: 1 !important; }
+  .register-shell > .visual-side { grid-column: 2 !important; grid-row: 1 !important; }
+}
+
+/* Narrow layouts stack each page in the same reading order as its desktop composition. */
+@media (max-width: 820px) {
+  .login-shell,
+  .register-shell {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .login-shell > .visual-side { order: 1 !important; }
+  .login-shell > .form-side { order: 2 !important; }
+  .register-shell > .form-side { order: 1 !important; }
+  .register-shell > .visual-side { order: 2 !important; }
+}
+
+/* Keep the site emblem preloader identical on both auth pages. */
+.preloader {
+  z-index: 9991 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: #0e0b06 !important;
+}
+.preloader__image {
+  background-image: url("../images/loader.webp");
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: 60px auto !important;
+  animation: preloaderIconFlip 2s ease-in-out infinite !important;
+  -webkit-animation: preloaderIconFlip 2s ease-in-out infinite !important;
+}
+
+
+
+/* Mobile-only order: keep the legal image above the form on both auth pages.
+   Desktop Register remains form-left / image-right. */
+@media (max-width: 820px) {
+  .login-shell,
+  .register-shell {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .login-shell > .visual-side,
+  .register-shell > .visual-side {
+    order: 1 !important;
+    width: 100% !important;
+  }
+  .login-shell > .form-side,
+  .register-shell > .form-side {
+    order: 2 !important;
+    width: 100% !important;
+  }
+}
