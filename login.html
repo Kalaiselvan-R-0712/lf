@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page || Stackly || Law Firm</title>
+<meta name="description" content="Stackly Law Firm — secure client and admin access for case updates, legal documents and client support.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="assets/vendors/procounsel-icons/style.css">
+<link rel="stylesheet" href="assets/css/procounsel.css">
+<link rel="stylesheet" href="assets/css/auth-pages.css">
+
+<meta name="theme-color" content="#19223a">
+
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicons/apple-touch-icon.webp">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicons/favicon-32x32.webp">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicons/favicon-16x16.webp">
+
+</head>
+
+<body class="loading auth-login-page">
+
+<div class="preloader">
+  <div class="preloader__image" style="background-image: url(assets/images/loader.webp);"></div>
+</div>
+<!-- /.preloader -->
+<div class="login-shell">
+  <!-- LEFT: LAW FIRM VISUAL PANEL -->
+  <section class="visual-side" aria-label="Stackly Law Firm introduction">
+    <div class="visual-grid"></div>
+    <a href="index.html" class="brand" aria-label="Stackly Law Firm home">
+      <img src="assets/images/logo-light.webp" alt="Stackly Law Firm">
+    </a>
+
+    <div class="visual-copy">
+      <div class="kicker"><i class="fas fa-balance-scale"></i> Stackly Law Firm</div>
+      <h2>LEGAL GUIDANCE. <span>CLIENT FIRST.</span><br>JUSTICE WITH CONFIDENCE.</h2>
+      <p>Case updates · Legal documents · Trusted client support</p>
+      <div class="visual-stats">
+        <div class="visual-stat"><strong>CASE MANAGEMENT</strong><span>Clear Case Updates</span></div>
+        <div class="visual-stat"><strong>1</strong><span>Private Documents</span></div>
+        <div class="visual-stat"><strong>SECURE ACCESS</strong><span>Trusted Client Support</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT: LOGIN PANEL -->
+  <section class="form-side">
+    <div class="auth-wrapper">
+      <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to site</a>
+
+      <div class="auth-content">
+        <div class="heading">
+          <div class="eyebrow">Secure Client Access</div>
+          <h1>Welcome Back</h1>
+          <p>Sign in to your Stackly Law Firm account to review case updates, access legal documents and stay connected with your legal team.</p>
+        </div>
+
+        <div id="formStatus" class="form-status"></div>
+
+        <form id="loginForm" novalidate>
+          <!-- ROLE -->
+          <div class="input-group">
+            <label>Account Type</label>
+            <div class="role-select" id="roleSelect" role="radiogroup" aria-label="Account Type">
+              <button type="button" class="role-option" data-value="Admin" aria-pressed="false">
+                <i class="fas fa-client-shield"></i><span>ADMIN</span>
+              </button>
+              <button type="button" class="role-option" data-value="Client" aria-pressed="false">
+                <i class="fas fa-chart-line"></i><span>CLIENT</span>
+              </button>
+            </div>
+            <input type="hidden" id="role" value="">
+            <p id="roleError" class="error">Please select an account type.</p>
+          </div>
+
+          <!-- EMAIL -->
+          <div class="input-group">
+            <label>Email Address</label>
+            <div class="input-wrap">
+              <i class="far fa-envelope"></i>
+              <input type="email" id="email" placeholder="you@domain.com" autocomplete="email">
+            </div>
+            <p id="emailError" class="error">Invalid email format.</p>
+          </div>
+
+          <!-- PASSWORD -->
+          <div class="input-group">
+            <label>Password</label>
+            <div class="input-wrap">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+              <button type="button" class="password-toggle" id="togglePass" aria-label="Show password">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+            <p id="passError" class="error">Min 8 chars, 1 Upper, 1 Lower, 1 Number &amp; 1 Symbol.</p>
+          </div>
+
+          <!-- REMEMBER -->
+          <div class="remember-row">
+            <label class="remember-label"><input type="checkbox" id="rememberMe"><span>Remember me</span></label>
+            <a href="404.html" class="forgot-pass-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn-primary" id="loginButton">Log In <i class="fas fa-arrow-right"></i></button>
+
+          <div class="auth-link">New to Stackly? <a href="register.html">Register</a></div>
+
+          <div class="demo-box">
+            <strong>Demo Access Credentials</strong>
+            <ul>
+              <li>Admin: admin@stackly.com</li>
+              <li>Client: client@stackly.com</li>
+              <li>Password: any valid strong password</li>
+            </ul>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>const sitePreloader = document.querySelector(".preloader");
+const sitePreloaderStarted = performance.now();
+let sitePreloaderFinished = false;
+
+function finishSitePreloader() {
+  if (sitePreloaderFinished || !sitePreloader) return;
+  sitePreloaderFinished = true;
+  const elapsed = performance.now() - sitePreloaderStarted;
+  const wait = Math.max(0, 1850 - elapsed);
+  window.setTimeout(function () {
+    sitePreloader.classList.add("is-hidden");
+    document.body.classList.remove("loading");
+    document.body.classList.add("page-ready");
+    window.setTimeout(function () {
+      if (sitePreloader && sitePreloader.parentNode) sitePreloader.remove();
+    }, 500);
+  }, wait);
+}
+
+window.addEventListener("load", finishSitePreloader, { once: true });
+window.setTimeout(finishSitePreloader, 3200);
+
+/* ELEMENTS */
+const loginForm=document.getElementById("loginForm");
+const email=document.getElementById("email");
+const password=document.getElementById("password");
+const role=document.getElementById("role");
+
+const roleError=document.getElementById("roleError");
+const emailError=document.getElementById("emailError");
+const passError=document.getElementById("passError");
+const formStatus=document.getElementById("formStatus");
+const loginButton=document.getElementById("loginButton");
+
+const togglePass=document.getElementById("togglePass");
+
+/* PASSWORD TOGGLE */
+togglePass.addEventListener("click",function(){
+    const show=password.type==="password";
+
+    password.type=show?"text":"password";
+
+    const icon=togglePass.querySelector("i");
+    icon.classList.toggle("fa-eye",!show);
+    icon.classList.toggle("fa-eye-slash",show);
+
+    togglePass.setAttribute(
+        "aria-label",
+        show?"Hide password":"Show password"
+    );
+});
+
+/* ROLE BUTTON SELECTION — same interaction as Register page */
+const roleOptions=[...document.querySelectorAll(".role-option")];
+
+roleOptions.forEach(option=>{
+    option.addEventListener("click",function(){
+        roleOptions.forEach(item=>{
+            item.classList.remove("selected");
+            item.setAttribute("aria-pressed","false");
+        });
+        option.classList.add("selected");
+        option.setAttribute("aria-pressed","true");
+        role.value=option.dataset.value;
+        roleError.classList.remove("show");
+        clearStatus();
+    });
+});
+
+/* VALIDATION */
+const emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passPattern=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+function clearStatus(){
+    formStatus.classList.remove("show");
+    formStatus.textContent="";
+}
+
+email.addEventListener("input",function(){
+    emailError.classList.remove("show");
+    clearStatus();
+});
+
+password.addEventListener("input",function(){
+    passError.classList.remove("show");
+    clearStatus();
+});
+
+/* LOGIN — REFERENCE ACTIONS PRESERVED */
+loginForm.addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    let valid=true;
+
+    /* ROLE CHECK */
+    if(role.value===""){
+        roleError.classList.add("show");
+        valid=false;
+    }else{
+        roleError.classList.remove("show");
+    }
+
+    /* EMAIL CHECK */
+    if(!emailPattern.test(email.value.trim())){
+        emailError.classList.add("show");
+        valid=false;
+    }else{
+        emailError.classList.remove("show");
+    }
+
+    /* PASSWORD CHECK */
+    if(!passPattern.test(password.value)){
+        passError.textContent=
+            "Min 8 chars, 1 Upper, 1 Lower, 1 Number & 1 Symbol.";
+        passError.classList.add("show");
+        valid=false;
+    }else{
+        passError.classList.remove("show");
+    }
+
+    if(!valid) return;
+
+    /* SAVE STUDENT DATA */
+    localStorage.removeItem("clientData");
+
+    const clientData={
+        email:email.value.trim(),
+        role:role.value.trim(),
+        loginTime:new Date().toISOString()
+    };
+
+    localStorage.setItem("clientData",JSON.stringify(clientData));
+    localStorage.setItem("isLoggedIn","true");
+
+    /* REMEMBER EMAIL ONLY */
+    if(document.getElementById("rememberMe").checked){
+        localStorage.setItem(
+            "stacklyRememberEmail",
+            email.value.trim()
+        );
+    }else{
+        localStorage.removeItem("stacklyRememberEmail");
+    }
+
+    /* REDIRECT — SAME AS REFERENCE */
+    formStatus.textContent="Login successful. Redirecting...";
+    formStatus.classList.add("show");
+
+    loginButton.disabled=true;
+    loginButton.innerHTML=
+        'Redirecting <i class="fas fa-balance-scale fa-spin"></i>';
+
+    setTimeout(function(){
+        if(role.value==="Admin"){
+            window.location.href="ae_dashboard.html";
+        }else{
+            window.location.href="fm_dashboard.html";
+        }
+    },450);
+});
+
+/* REMEMBERED EMAIL */
+window.addEventListener("DOMContentLoaded",function(){
+    const remembered=localStorage.getItem("stacklyRememberEmail");
+
+    if(remembered){
+        email.value=remembered;
+        document.getElementById("rememberMe").checked=true;
+    }
+});
+
+</script>
+<a class="scroll-to-target scroll-to-top stackly-auth-back-top"
+   data-target="html" href="#top" aria-label="Back to top" title="Back to top">
+  <span class="scroll-to-top__text">back top</span>
+  <span class="scroll-to-top__wrapper"><span class="scroll-to-top__inner"></span></span>
+</a>
+<script id="stackly-auth-back-to-top">
+(function () {
+  var control = document.querySelector(".stackly-auth-back-top");
+  if (!control) return;
+  var progress = control.querySelector(".scroll-to-top__inner");
+
+  function updateControl() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var docHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight
+    );
+    var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    var scrollable = docHeight > viewportHeight + 20;
+
+    if (scrollTop > 500 && scrollable) {
+      control.classList.add("show");
+    } else {
+      control.classList.remove("show");
+    }
+
+    if (progress && scrollable) {
+      var percentage = Math.min(100, ((scrollTop + viewportHeight) / docHeight) * 100);
+      progress.style.width = percentage + "%";
+    } else if (progress) {
+      progress.style.width = "0%";
+    }
+  }
+
+  control.addEventListener("click", function (event) {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  window.addEventListener("scroll", updateControl, { passive: true });
+  window.addEventListener("resize", updateControl);
+  window.addEventListener("load", updateControl, { once: true });
+  updateControl();
+})();
+</script>
+</body>
+</html>

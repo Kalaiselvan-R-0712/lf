@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#19223a"/>
+  <meta name="robots" content="noindex, follow"/>
+  <title>404 Page || Stackly || Law Firm</title>
+  <link rel="icon" href="assets/images/favicon.webp" type="image/webp"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#19223a;
+      --navy-deep:#111a30;
+      --gold:#c7954a;
+      --gold-light:#e0b66f;
+      --white:#fff;
+      --soft:#e6e8ee;
+      --muted:#b9c0d0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{min-height:100%;width:100%}
+    body{
+      font-family:"Plus Jakarta Sans",sans-serif;
+      color:var(--white);
+      background:var(--navy-deep);
+      overflow-x:hidden;
+    }
+    .error-page{
+      min-height:100svh;
+      display:grid;
+      place-items:center;
+      padding:clamp(20px,4vw,56px);
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+      background:
+        radial-gradient(ellipse at 80% 15%,rgba(199,149,74,.13),transparent 35%),
+        linear-gradient(135deg,#111a30 0%,#19223a 58%,#202a43 100%);
+    }
+    .error-page:before{
+      content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+      background:linear-gradient(90deg,rgba(12,19,35,.22),transparent 55%,rgba(12,19,35,.12));
+    }
+    .error-shell{
+      width:min(1180px,100%);
+      min-height:min(690px,calc(100svh - 64px));
+      display:grid;
+      grid-template-columns:minmax(0, .92fr) minmax(0,1.08fr);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:22px;
+      overflow:hidden;
+      background:rgba(25,34,58,.68);
+      box-shadow:0 28px 80px rgba(0,0,0,.3);
+    }
+    .visual{
+      position:relative;
+      min-height:590px;
+      background:#20283c url("assets/images/404-law-laugh.webp") center 42%/cover no-repeat;
+      isolation:isolate;
+    }
+    .visual:after{
+      content:"";position:absolute;inset:0;z-index:-1;
+      background:linear-gradient(180deg,rgba(15,23,40,.05) 35%,rgba(15,23,40,.72) 100%),
+                 linear-gradient(90deg,transparent 60%,rgba(25,34,58,.22));
+    }
+    .visual-caption{
+      position:absolute;left:clamp(22px,3vw,42px);right:24px;bottom:30px;
+      color:#fff;font-family:"Marcellus",serif;font-size:clamp(20px,2.2vw,28px);
+      line-height:1.35;text-shadow:0 2px 16px rgba(0,0,0,.55);
+    }
+    .visual-caption span{color:var(--gold-light)}
+    .content{
+      display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+      padding:clamp(32px,5vw,72px);
+      position:relative;
+    }
+    .brand{display:inline-flex;align-items:center;margin-bottom:clamp(38px,6vh,66px)}
+    .brand img{display:block;width:clamp(150px,17vw,205px);height:auto;max-height:66px;object-fit:contain;object-position:left center}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;margin-bottom:20px;
+      color:var(--gold-light);font-size:11px;font-weight:800;letter-spacing:2.4px;text-transform:uppercase;
+    }
+    .eyebrow:before{content:"";width:30px;height:1px;background:var(--gold)}
+    .number{
+      font-family:"Marcellus",serif;font-size:clamp(112px,16vw,190px);
+      line-height:.82;letter-spacing:-.055em;color:var(--gold-light);
+      text-shadow:0 10px 30px rgba(0,0,0,.2);margin-bottom:26px;
+    }
+    h1{
+      max-width:560px;font-family:"Marcellus",serif;font-size:clamp(29px,3.3vw,46px);
+      line-height:1.2;font-weight:400;color:#fff;
+    }
+    h1 span{color:var(--gold-light)}
+    .message{
+      max-width:510px;margin-top:18px;color:var(--soft);
+      font-size:clamp(14px,1.2vw,16px);line-height:1.9;
+    }
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+    .btn{
+      min-height:54px;padding:0 23px;display:inline-flex;align-items:center;justify-content:center;gap:11px;
+      border-radius:5px;text-decoration:none;font:700 13px "Plus Jakarta Sans",sans-serif;
+      border:1px solid transparent;cursor:pointer;transition:background .22s ease,border-color .22s ease,transform .22s ease,box-shadow .22s ease;
+    }
+    .btn-primary{background:var(--gold);color:#172039;box-shadow:0 10px 25px rgba(0,0,0,.18)}
+    .btn-secondary{background:transparent;border-color:rgba(224,182,111,.72);color:#fff}
+    .btn:focus-visible{outline:3px solid var(--gold-light);outline-offset:4px}
+    .dashboard-icon{width:17px;height:17px;display:inline-block;flex:0 0 17px;vertical-align:middle}
+    .fine-line{width:74px;height:2px;margin-top:34px;background:var(--gold);opacity:.9}
+    .footer-note{margin-top:16px;color:var(--muted);font-size:11px;letter-spacing:.25px}
+    @media(min-width:1025px) and (hover:hover) and (pointer:fine){
+      .btn-primary:hover{background:var(--gold-light);transform:translateY(-3px);box-shadow:0 15px 32px rgba(0,0,0,.25)}
+      .btn-secondary:hover{background:rgba(199,149,74,.12);border-color:var(--gold-light);transform:translateY(-3px)}
+    }
+    @media(max-width:800px){
+      .error-page{padding:16px}
+      .error-shell{grid-template-columns:1fr;max-width:600px;min-height:0}
+      .visual{min-height:clamp(250px,48vw,390px);background-position:center 34%}
+      .visual-caption{bottom:18px;font-size:22px}
+      .content{padding:34px clamp(23px,6vw,42px) 38px}
+      .brand{margin-bottom:32px}
+      .number{font-size:clamp(112px,25vw,155px);margin-bottom:20px}
+      h1{font-size:clamp(29px,6vw,39px)}
+      .actions{margin-top:26px}
+    }
+    @media(max-width:480px){
+      .error-page{padding:10px}
+      .error-shell{border-radius:14px}
+      .visual{min-height:245px}
+      .content{padding:28px 22px 30px}
+      .brand{margin-bottom:28px}
+      .brand img{width:158px}
+      .eyebrow{font-size:10px;letter-spacing:1.8px}
+      .number{font-size:112px}
+      h1{font-size:29px}
+      .message{font-size:13px;line-height:1.75}
+      .actions{width:100%;display:grid;grid-template-columns:1fr}
+      .btn{width:100%;min-height:51px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+    }
+  
+/* Fixed-viewport 404 layout: no page-level scrolling on any screen size. */
+html, body {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
+body { position: fixed; inset: 0; }
+.error-page {
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 0;
+  padding: clamp(8px, 1.6vw, 22px);
+  overflow: hidden;
+}
+.error-shell {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  overflow: hidden;
+}
+.visual { min-height: 0; height: 100%; }
+.content {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  padding: clamp(12px, 2.8vh, 30px) clamp(18px, 3.5vw, 48px);
+  justify-content: center;
+}
+.brand { margin-bottom: clamp(8px, 1.7vh, 18px); }
+.brand img {
+  width: clamp(105px, 13vw, 170px);
+  max-height: clamp(30px, 6vh, 54px);
+}
+.eyebrow { margin-bottom: clamp(5px, 1.1vh, 12px); font-size: clamp(9px, 1.25vh, 11px); }
+.number {
+  font-size: clamp(76px, 17vh, 154px);
+  line-height: .78;
+  margin-bottom: clamp(8px, 1.6vh, 17px);
+}
+h1 { font-size: clamp(22px, 3.5vh, 38px); line-height: 1.12; }
+.message {
+  margin-top: clamp(7px, 1.3vh, 13px);
+  font-size: clamp(11px, 1.55vh, 14px);
+  line-height: 1.55;
+}
+.actions { gap: 8px; margin-top: clamp(12px, 2.2vh, 22px); }
+.btn { min-height: clamp(39px, 6.2vh, 49px); padding: 0 clamp(12px, 1.8vw, 20px); font-size: clamp(10px, 1.45vh, 12px); }
+.fine-line { margin-top: clamp(10px, 1.7vh, 17px); }
+.footer-note { margin-top: clamp(6px, 1vh, 10px); font-size: clamp(9px, 1.2vh, 10px); }
+
+@media (max-width: 800px) {
+  .error-page { padding: 8px; }
+  .error-shell {
+    width: 100%;
+    height: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 24svh) minmax(0, 1fr);
+  }
+  .visual {
+    min-height: 0;
+    height: auto;
+    background-position: center 34%;
+  }
+  .visual-caption {
+    left: 16px; right: 14px; bottom: 9px;
+    font-size: clamp(13px, 2.5vh, 20px);
+  }
+  .content {
+    height: 100%;
+    padding: clamp(8px, 1.8vh, 16px) clamp(16px, 5vw, 28px);
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+  .brand { margin-bottom: clamp(5px, 1vh, 10px); }
+  .brand img { width: clamp(105px, 28vw, 145px); max-height: clamp(25px, 4.5vh, 38px); object-position: center; }
+  .eyebrow { margin-bottom: clamp(4px, .8vh, 8px); font-size: clamp(8px, 1.3vh, 10px); }
+  .number { font-size: clamp(68px, 14vh, 112px); margin-bottom: clamp(6px, 1vh, 10px); }
+  h1 { max-width: 500px; font-size: clamp(19px, 3.3vh, 28px); line-height: 1.1; }
+  .message { max-width: 500px; margin-top: clamp(5px, .9vh, 9px); font-size: clamp(10px, 1.65vh, 12px); line-height: 1.42; }
+  .actions { width: 100%; display: flex; justify-content: center; gap: 7px; margin-top: clamp(8px, 1.4vh, 13px); }
+  .btn { width: auto; min-width: 0; min-height: clamp(34px, 5.5vh, 42px); padding: 0 12px; font-size: clamp(9px, 1.45vh, 11px); }
+  .fine-line { margin-top: clamp(6px, 1vh, 9px); }
+  .footer-note { margin-top: clamp(4px, .7vh, 7px); font-size: clamp(8px, 1.2vh, 9px); text-align: center; }
+}
+@media (max-width: 480px) {
+  .error-page { padding: 0; }
+  .error-shell { border-radius: 0; border: 0; grid-template-rows: minmax(0, 21svh) minmax(0, 1fr); }
+  .visual { background-position: center 31%; }
+  .content { padding: 6px 16px max(6px, env(safe-area-inset-bottom)); }
+  .brand img { width: clamp(96px, 27vw, 125px); }
+  .eyebrow { letter-spacing: 1.5px; }
+  .number { font-size: clamp(62px, 12.5vh, 92px); }
+  h1 { font-size: clamp(18px, 3.1vh, 24px); }
+  .message { font-size: clamp(9px, 1.55vh, 11px); line-height: 1.35; }
+  .actions { gap: 6px; margin-top: clamp(6px, 1vh, 9px); }
+  .btn { flex: 1 1 0; padding: 0 6px; font-size: clamp(8px, 1.35vh, 10px); gap: 5px; }
+  .fine-line { margin-top: 6px; }
+  .footer-note { margin-top: 4px; font-size: 8px; }
+}
+@media (max-width: 360px) {
+  .content { padding-left: 10px; padding-right: 10px; }
+  .number { font-size: clamp(58px, 11.5vh, 78px); }
+  h1 { font-size: clamp(17px, 2.9vh, 21px); }
+  .message { font-size: clamp(8px, 1.45vh, 10px); }
+  .btn { font-size: 8px; }
+}
+/* Compact landscape phones/tablets: use a side-by-side composition to preserve height. */
+@media (max-width: 900px) and (max-height: 520px) {
+  .error-page { padding: 6px; }
+  .error-shell { max-width: none; grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr); grid-template-rows: minmax(0, 1fr); }
+  .visual { height: 100%; min-height: 0; }
+  .visual-caption { font-size: clamp(11px, 3vh, 16px); left: 10px; bottom: 8px; }
+  .content { padding: 5px clamp(10px, 2vw, 20px); }
+  .brand { margin-bottom: 4px; }
+  .brand img { width: clamp(80px, 14vw, 120px); max-height: 25px; }
+  .eyebrow { margin-bottom: 3px; font-size: 8px; }
+  .number { font-size: clamp(48px, 18vh, 82px); margin-bottom: 5px; }
+  h1 { font-size: clamp(15px, 4vh, 22px); }
+  .message { margin-top: 4px; font-size: clamp(8px, 2.5vh, 10px); line-height: 1.3; }
+  .actions { margin-top: 6px; gap: 5px; }
+  .btn { min-height: 29px; padding: 0 8px; font-size: 8px; }
+  .fine-line { margin-top: 5px; }
+  .footer-note { margin-top: 3px; font-size: 7px; }
+}
+@media (max-height: 420px) and (min-width: 901px) {
+  .content { padding: 5px 16px; }
+  .brand { margin-bottom: 4px; }
+  .brand img { width: 100px; max-height: 24px; }
+  .eyebrow { margin-bottom: 3px; font-size: 8px; }
+  .number { font-size: 66px; margin-bottom: 5px; }
+  h1 { font-size: 19px; }
+  .message { margin-top: 4px; font-size: 9px; line-height: 1.3; }
+  .actions { margin-top: 6px; }
+  .btn { min-height: 29px; font-size: 8px; }
+  .fine-line { margin-top: 5px; }
+  .footer-note { margin-top: 3px; font-size: 7px; }
+}
+
+</style>
+<style id="stackly-404-viewport-hard-lock">
+
+/* FINAL viewport hard-lock override (must remain last in the head). */
+:root, html, body {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: clip !important;
+  overscroll-behavior: none !important;
+  scrollbar-width: none !important;
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar,
+.error-page::-webkit-scrollbar, .error-shell::-webkit-scrollbar,
+.content::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+body {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  overflow: clip !important;
+}
+.error-page {
+  position: fixed !important;
+  inset: 0 !important;
+  display: grid !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  max-height: 100dvh !important;
+  padding: clamp(6px, 1.2vw, 16px) !important;
+  margin: 0 !important;
+  overflow: clip !important;
+  overscroll-behavior: none !important;
+  touch-action: pan-x pan-y !important;
+}
+.error-shell {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  margin: 0 !important;
+  overflow: clip !important;
+}
+.visual, .content {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+.content {
+  height: 100% !important;
+  overflow: clip !important;
+}
+@media (max-width: 800px) {
+  .error-page { padding: 0 !important; }
+  .error-shell {
+    height: 100% !important;
+    max-height: 100% !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 21dvh) minmax(0, 1fr) !important;
+    border-radius: 0 !important;
+  }
+  .visual { height: 100% !important; min-height: 0 !important; }
+  .content {
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: clip !important;
+    padding-top: clamp(4px, 1vh, 10px) !important;
+    padding-bottom: max(4px, env(safe-area-inset-bottom)) !important;
+  }
+}
+@media (max-width: 900px) and (max-height: 520px) {
+  .error-shell {
+    grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr) !important;
+    grid-template-rows: minmax(0, 1fr) !important;
+  }
+  .content { padding-top: 3px !important; padding-bottom: 3px !important; }
+}
+/* Prevent focus/animation styles from expanding the fixed page. */
+.error-page *, .error-page *::before, .error-page *::after {
+  max-width: 100%;
+}
+
+</style>
+<style id="stackly-404-desktop-space-refinement">
+
+/* Desktop-only composition refinement: use the available right panel space. */
+@media (min-width: 801px) and (min-height: 601px) {
+  .content {
+    align-items: flex-start !important;
+    text-align: left !important;
+    justify-content: center !important;
+    padding: clamp(34px, 5.5vh, 58px) clamp(34px, 4.2vw, 72px) !important;
+  }
+  .brand {
+    margin-bottom: clamp(24px, 4.4vh, 46px) !important;
+  }
+  .brand img {
+    width: clamp(190px, 15vw, 238px) !important;
+    max-height: 70px !important;
+  }
+  .eyebrow {
+    margin-bottom: clamp(12px, 2vh, 20px) !important;
+    font-size: clamp(11px, 1.35vh, 13px) !important;
+    letter-spacing: 2.8px !important;
+  }
+  .number {
+    font-size: clamp(172px, 22vh, 218px) !important;
+    margin-bottom: clamp(18px, 2.7vh, 28px) !important;
+    line-height: .82 !important;
+  }
+  h1 {
+    max-width: 100% !important;
+    font-size: clamp(36px, 3.25vw, 49px) !important;
+    line-height: 1.18 !important;
+  }
+  .message {
+    max-width: 100% !important;
+    margin-top: clamp(14px, 2vh, 20px) !important;
+    font-size: clamp(15px, 1.15vw, 17px) !important;
+    line-height: 1.75 !important;
+  }
+  .actions {
+    gap: 14px !important;
+    margin-top: clamp(24px, 3.4vh, 36px) !important;
+  }
+  .btn {
+    min-height: 58px !important;
+    padding: 0 26px !important;
+    font-size: 14px !important;
+  }
+  .fine-line {
+    width: 92px !important;
+    margin-top: clamp(24px, 3.5vh, 36px) !important;
+  }
+  .footer-note {
+    margin-top: 13px !important;
+    font-size: 12px !important;
+  }
+}
+/* Short-height desktop and laptop screens retain the compact no-scroll layout. */
+@media (min-width: 801px) and (max-height: 600px) {
+  .content { padding: 5px 24px !important; }
+  .brand { margin-bottom: 5px !important; }
+  .brand img { width: 125px !important; max-height: 28px !important; }
+  .eyebrow { margin-bottom: 4px !important; font-size: 8px !important; }
+  .number { font-size: 72px !important; margin-bottom: 6px !important; }
+  h1 { font-size: 21px !important; }
+  .message { margin-top: 5px !important; font-size: 10px !important; line-height: 1.35 !important; }
+  .actions { margin-top: 7px !important; gap: 6px !important; }
+  .btn { min-height: 31px !important; font-size: 9px !important; }
+  .fine-line { margin-top: 5px !important; }
+  .footer-note { margin-top: 4px !important; font-size: 8px !important; }
+}
+
+</style>
+<style id="stackly-404-desktop-layout-final">
+
+/* Desktop layout: generous typography and spacing across normal desktop zoom levels. */
+@media (min-width: 801px) {
+  .error-shell {
+    grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr) !important;
+  }
+  .content {
+    align-items: flex-start !important;
+    text-align: left !important;
+    justify-content: center !important;
+    padding: clamp(26px, 4vh, 48px) clamp(30px, 4vw, 68px) !important;
+  }
+  .brand { margin-bottom: clamp(18px, 3.4vh, 34px) !important; }
+  .brand img { width: clamp(190px, 14vw, 230px) !important; max-height: 66px !important; }
+  .eyebrow {
+    margin-bottom: clamp(10px, 1.6vh, 17px) !important;
+    font-size: 12px !important;
+    letter-spacing: 2.7px !important;
+  }
+  .number {
+    font-size: clamp(150px, 19vh, 205px) !important;
+    line-height: .82 !important;
+    margin-bottom: clamp(15px, 2.2vh, 23px) !important;
+  }
+  h1 {
+    max-width: 100% !important;
+    font-size: clamp(34px, 2.8vw, 46px) !important;
+    line-height: 1.2 !important;
+  }
+  .message {
+    max-width: 100% !important;
+    margin-top: clamp(12px, 1.8vh, 19px) !important;
+    font-size: clamp(14px, 1vw, 16px) !important;
+    line-height: 1.7 !important;
+  }
+  .actions { gap: 13px !important; margin-top: clamp(20px, 3vh, 31px) !important; }
+  .btn { min-height: 56px !important; padding: 0 23px !important; font-size: 13px !important; }
+  .home-icon { width: 17px !important; height: 17px !important; display: inline-block !important; flex: 0 0 17px !important; }
+  .fine-line { width: 88px !important; margin-top: clamp(18px, 2.7vh, 28px) !important; }
+  .footer-note { margin-top: 11px !important; font-size: 11px !important; }
+}
+/* Only genuinely short landscape/low-height desktop windows use the compact variant. */
+@media (min-width: 801px) and (max-height: 420px) {
+  .content { padding: 4px 20px !important; }
+  .brand { margin-bottom: 3px !important; }
+  .brand img { width: 115px !important; max-height: 24px !important; }
+  .eyebrow { margin-bottom: 2px !important; font-size: 8px !important; }
+  .number { font-size: 64px !important; margin-bottom: 4px !important; }
+  h1 { font-size: 18px !important; }
+  .message { margin-top: 3px !important; font-size: 8px !important; line-height: 1.2 !important; }
+  .actions { margin-top: 4px !important; gap: 5px !important; }
+  .btn { min-height: 26px !important; padding: 0 7px !important; font-size: 7px !important; }
+  .home-icon { width: 12px !important; height: 12px !important; flex-basis: 12px !important; }
+  .fine-line { margin-top: 3px !important; }
+  .footer-note { margin-top: 2px !important; font-size: 6px !important; }
+}
+
+</style>
+</head>
+<body>
+  <main class="error-page">
+    <div class="error-shell">
+      <div class="visual" role="img" aria-label="A smiling Lady Justice statue holding the scales of justice">
+        <p class="visual-caption">Even Lady Justice can take a <span>wrong turn.</span></p>
+      </div>
+      <section class="content" aria-labelledby="error-title">
+        <a class="brand" href="index.html" aria-label="Stackly Law Firm home">
+          <img src="assets/images/logo-light.webp" alt="Stackly Law Firm"/>
+        </a>
+        <div class="eyebrow">A little legal detour</div>
+        <div class="number" aria-label="404">404</div>
+        <h1 id="error-title">Oops! Looks like this page took a <span>wrong turn.</span></h1>
+        <p class="message">
+          No need to laugh it off — the page you’re looking for isn’t here.
+          It may have moved, been removed, or the link may be outdated.
+          Let’s get you back to the right place.
+        </p>
+        <div class="actions">
+          <button class="btn btn-secondary" id="backPrevious" type="button"><i aria-hidden="true">←</i> Back to Previous Page</button>
+          <a class="btn btn-primary" href="fm_dashboard.html" aria-label="Back to Client Dashboard"><svg class="dashboard-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="13.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M1.8 20.5h20.4l-1.8-3H3.6l-1.8 3Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M9 18.2h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Back to Client Dashboard</a>
+        </div>
+        <div class="fine-line" aria-hidden="true"></div>
+        <p class="footer-note">Stackly Law Firm · Here to help you find your way.</p>
+      </section>
+    </div>
+  </main>
+  <script id="stackly-back-previous-fix">
+(function () {
+  var button = document.getElementById('backPrevious');
+  if (!button) return;
+  button.addEventListener('click', function () {
+    var destination = null;
+    try {
+      var saved = sessionStorage.getItem('stacklyReturnToPage');
+      if (saved) {
+        var candidate = new URL(saved, window.location.href);
+        if (candidate.origin === window.location.origin && !/(?:^|\/)(?:404|fm_404)\.html$/i.test(candidate.pathname)) destination = candidate.href;
+      }
+    } catch (e) {}
+    // Fallback for visits to 404.html that did not originate from a tracked site action.
+    if (!destination) {
+      try {
+        var ref = document.referrer ? new URL(document.referrer) : null;
+        if (ref && ref.origin === window.location.origin && !/(?:^|\/)(?:404|fm_404)\.html$/i.test(ref.pathname)) destination = ref.href;
+      } catch (e) {}
+    }
+    if (destination) {
+      try { sessionStorage.removeItem('stacklyReturnToPage'); } catch (e) {}
+      window.location.assign(destination);
+      return;
+    }
+    if (window.history.length > 1) window.history.back();
+    else window.location.assign('index.html');
+  });
+})();
+</script>
+</body>
+</html>
