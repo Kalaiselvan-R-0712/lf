@@ -21780,3 +21780,33 @@ body.boxed-wrapper .main-header {
     top: 0 !important;
   }
 }
+
+/* Stackly address and business-hours hover states (shared across main pages) */
+.topbar-one__info__item:first-child,
+.topbar-one__text,
+.contact-one__info__text,
+.main-footer__info__location {
+  transition: color 250ms ease, text-decoration-color 250ms ease;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+}
+
+.topbar-one__info__item:first-child:hover,
+.topbar-one__text:hover,
+.contact-one__info__text:hover,
+.main-footer__info__location:hover {
+  color: var(--procounsel-base, #c7954a);
+  text-decoration-color: currentColor;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar-one__info__item:first-child,
+  .topbar-one__text,
+  .contact-one__info__text,
+  .main-footer__info__location {
+    transition: none;
+  }
+}
+
